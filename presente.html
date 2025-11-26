@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Meu Amor!</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <audio id="audioRelampago" src="relampago.mp3" preload="auto"></audio>
+
+    <section id="login-stage" class="stage active">
+        <div class="login-container">
+            <h1 class="logo">
+                <span class="vermelho">FELIZ</span>
+                <span class="azul">ANIVERSÁRIO</span>
+            </h1>
+            
+            <div class="login-box-simplified"> 
+                <button id="btnEntrar" class="btn-clean">
+                    ENTRAR
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="intro-stage" class="stage hidden">
+        
+        <div id="mcqueen-area"> 
+            
+            <div class="background-mcqueen"></div>
+            
+            <div class="button-container">
+                <button id="btnLerTexto" class="btn-vermelho">LER TEXTO</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="content-stage" class="stage hidden">
+        
+        <div class="texto-centralizado-wrapper">
+            
+            <div class="text-section">
+                
+                <h2 id="tituloPrincipal"></h2>
+                
+                <div class="bloco-texto">
+                    <h3 id="subtitulo1"></h3>
+                    <p id="paragrafo1"></p>
+                </div>
+                
+                <div class="bloco-texto destaque">
+                    <h3 id="subtitulo2"></h3>
+                    <p id="paragrafo2"></p>
+                    </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        // === VARIÁVEIS GLOBAIS ===
+        const audio = document.getElementById('audioRelampago');
+        const tempoDeEspera = 11000; 
+        
+        // Estágios
+        const loginStage = document.getElementById('login-stage');
+        const introStage = document.getElementById('intro-stage');
+        const contentStage = document.getElementById('content-stage');
+        
+        // Elementos do Estágio 2 (Introdução)
+        const mcqueenArea = document.getElementById('mcqueen-area');
+        const btnLerTexto = document.getElementById('btnLerTexto');
+        
+        // === FUNÇÕES DE NAVEGAÇÃO ===
+        function switchStage(nextStage) {
+            [loginStage, introStage, contentStage].forEach(stage => {
+                stage.classList.remove('active');
+                stage.classList.add('hidden'); 
+            });
+            nextStage.classList.remove('hidden'); 
+            nextStage.classList.add('active'); 
+        }
+
+        // === ESTÁGIO 1: LOGIN (INICIA ÁUDIO E TRANSIÇÃO) ===
+        document.getElementById('btnEntrar').onclick = function() {
+            // 1. Tenta tocar o áudio usando o clique do botão de login (Ação do Usuário)
+            audio.play().catch(error => {
+                console.error("Autoplay falhou, o navegador bloqueou o áudio. O timer continua.", error);
+            });
+
+            // 2. Faz a transição imediatamente para a tela de introdução (que é preta)
+            switchStage(introStage);
+
+            // 3. Após 11 segundos, a imagem do McQueen e o botão aparecem com fade-in suave
+            setTimeout(() => {
+                // Adiciona a classe 'fade-in', que muda a opacidade de 0 para 1 em 3s (definido no CSS)
+                mcqueenArea.classList.add('fade-in');   
+            }, tempoDeEspera);
+        };
+        
+        // === ESTÁGIO 2: BOTÃO LER TEXTO ===
+        btnLerTexto.onclick = function() {
+            audio.pause();
+            audio.currentTime = 0; 
+            switchStage(contentStage);
+            startTypingSequence();
+        };
+
+        // === ESTÁGIO 3: DIGITAÇÃO (TEXTO) ===
+        
+        // Função para o efeito de digitação (mantida)
+        function typeWriter(elementId, text, delay = 30, callback) {
+            let i = 0;
+            const element = document.getElementById(elementId);
+            element.textContent = ''; 
+            element.classList.add('typing'); 
+
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, delay);
+                } else {
+                    element.classList.remove('typing'); 
+                    element.classList.add('finished-typing'); 
+                    if (callback) callback();
+                }
+            }
+            setTimeout(type, 50); 
+        }
+
+        // TEXTOS QUE SERÃO DIGITADOS EM ORDEM SEQUENCIAL (SEU TEXTO ORIGINAL)
+        const textos = [
+            { id: 'tituloPrincipal', text: 'Feliz aniversário meu amor...' },
+            
+            { id: 'subtitulo1', text: '' }, // Deixado em branco para manter a sequência
+            { id: 'paragrafo1', text: 'Mesmo depois de tanto tempo, eu ainda não tenho palavras pra descrever o quanto você é importante pra mim, e o quanto eu te amo. Mas quero que saiba que eu te amo, que eu sou feliz de ter você na minha vida, você é muito importante e especial pra mim. Palavras não são o suficiente pra expressar meu amor, mas quero que saiba que nunca vou cansar de dizer e tentar demonstrar isso, pois eu te amo de todo meu coração. Nunca imaginei que a gente se tornaria o que somos, nunca imaginei que seríamos amigos e viramos, nem que nos apaixonaria nos apaixonamos, e hoje você é tudo pra mim...' },
+            
+            { id: 'subtitulo2', text: '' }, // Deixado em branco para manter a sequência
+            { id: 'paragrafo2', text: 'Como eu já falei, eu te amo além de palavras e texto, você se tornou o amor da minha vida e eu jamais quero te perder. Jamais quero machucar você, quero realizar meus sonhos e construir um futuro ao seu lado, quero me casar e quero que você seja a minha esposa e a mãe dos meus filhos, quero que estejamos um do lado do outro até o fim... Você chegou e me fez acreditar no amor de novo, mostrou que ainda vale apena se apaixonar, ainda vale apena amar, ainda existe o amor, e sou grato a você por isso, pois finalmente me sinto amado e sem medo de amar. Como eu já falei várias vezes, eu quero namorar com você, casar, realizar nossos sonhos, ter nossos filhos, sonho muito com isso. Jamais quero que se sinta insegura ou pensa que seria trocada por outra, pois você é única, tem um brilho que nenhuma outra tem, você é especial pra mim, você é importante, e só você, ninguém mais, ninguém jamais vai ocupar seu lugar, por que além de melhor amiga vai ser minha futura esposa. Eu te quero pra sempre ao meu lado, independente das brigas, discussões, e desentendimentos, quero que a gente sempre se resolva e entenda o lado um do outro, e nos resolvemos, pois nunca quero perder você. tenho sorte de ter você na minha vida, uma menina incrível, uma pessoa fofa, simpática, engraçada, amorosa, tenho sorte de ter você agora e futuramente como esposa e futura mãe dos meus filhos, agradeço todos os dias por isso. Já falei e não vou me cansar de falar o quanto sou apaixonado por você, jamais imaginei que se apaixonaria dessa forma, mas me apaixonei, e tô feliz por isso, você tá nas minhas orações, nos meus pensamentos antes de dormir e quando acordo, você faz parte do meu dia, da minha rotina e da minha vida, eu te amo muito minha princesa. Quero que você conte comigo pra tudo, sempre que as coisas derem errado, sempre que virarem as costas pra você, sempre que não te apoiarem, saiba que sempre vou tá aqui, quero ser alguém que você se sinta confortável, que desabafe, pois eu sempre vou te apoiar e estar aqui por você. Desejo que você realize todos os seus sonhos, quero te ver conquistando cada coisa, e quero tá do seu lado, te ajudando a conquistar, te apoiando, e te aplaudindo a cada passo, a cada sonho realizado, a cada conquista alcançada. Nunca se esqueça o quanto você é importante pra mim, e nunca se esqueça do quanto eu te amo, mesmo quando as vezes eu esteja de mal humor, e não demonstre da maneira correta, quero que saiba que eu sempre vou te amar. Obrigado por nunca desistir de mim, mesmo quando dei motivo e tentei fugir, nunca desistiu da gente, sempre arrumou um jeito de me fazer ficar, da gente se resolver, me mostrou que nem tudo se resolve indo embora, e que dessa vez a melhor escolha seria ficar, hoje eu te amo de todo meu coração. Feliz aniversário meu amor, que seus 17 anos sejam repletos de felicidade, conquistas e paz, que Deus abençoe seu caminho, parabéns pelo seu dia minha princesa ❤️🫶🏻' },
+        ];
+
+        let currentTextIndex = 0;
+
+        function startTypingSequence() {
+            if (currentTextIndex < textos.length) {
+                const { id, text } = textos[currentTextIndex];
+                // Certifica-se de que o elemento não está sendo re-digitado se estiver vazio.
+                if (text.length > 0) {
+                    typeWriter(id, text, 30, () => { 
+                        currentTextIndex++;
+                        startTypingSequence(); 
+                    });
+                } else {
+                    // Pula para o próximo bloco de texto se o texto for vazio (como subtitulos vazios)
+                    currentTextIndex++;
+                    startTypingSequence(); 
+                }
+            }
+        }
+    </script>
+</body>
+</html>

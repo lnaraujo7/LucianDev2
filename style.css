@@ -1,0 +1,317 @@
+/* Importando a fonte Robota */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --cor-vermelho: #E50914; 
+    --cor-texto: #FFFFFF;
+    --cor-fundo-box: rgba(0, 0, 0, 0.75); 
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: var(--cor-texto);
+    overflow: hidden; 
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* === ESTILOS GLOBAIS DE PALCO === */
+.stage {
+    min-height: 100vh;
+    width: 100vw;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000; 
+    box-sizing: border-box;
+    overflow: hidden; 
+    opacity: 0; 
+    transition: opacity 0.5s ease-in-out; 
+}
+
+.stage.active {
+    position: relative; 
+    opacity: 1; 
+    z-index: 1; 
+}
+
+/* === ESTILOS DO LOGO GERAL (Apenas para o login) === */
+.logo {
+    font-size: 3.5rem; 
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin: 0;
+    color: var(--cor-texto);
+}
+
+.vermelho {
+    color: var(--cor-vermelho);
+}
+
+.azul {
+    color: var(--cor-texto);
+}
+
+/* === REMOÇÃO DE HEADER E FOOTER === */
+header, footer {
+    display: none;
+}
+
+
+/* === ESTILOS DO ESTÁGIO 1: LOGIN (SIMPLIFICADO) === */
+
+#login-stage {
+    justify-content: center; 
+    align-items: center;   
+    text-align: center; 
+}
+
+.login-container {
+    padding: 40px;
+    text-align: center;
+    z-index: 1; 
+}
+
+.login-box-simplified {
+    background: var(--cor-fundo-box);
+    padding: 60px 68px;
+    border-radius: 4px;
+    width: 320px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: inline-block; 
+}
+
+#btnEntrar.btn-clean {
+    width: 100%;
+    padding: 16px 30px; 
+    background-color: var(--cor-vermelho);
+    color: var(--cor-texto);
+    border: none;
+    border-radius: 4px;
+    font-size: 1.5rem; 
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#btnEntrar.btn-clean:hover {
+    background-color: #F40F1D; 
+}
+
+
+/* === ESTILOS DO ESTÁGIO 2: INTRODUÇÃO/ÁUDIO (FADE-IN AJUSTADO) === */
+
+#intro-stage {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #000; 
+}
+
+#mcqueen-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; 
+    transition: opacity 3s ease-in-out; 
+    z-index: 10;
+}
+
+#mcqueen-area.fade-in {
+    opacity: 1; 
+}
+
+.background-mcqueen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('relampago2.png'); 
+    background-size: cover; 
+    background-position: center bottom; 
+    z-index: 1;
+}
+
+.button-container {
+    z-index: 10; 
+    padding: 10px;
+}
+
+.btn-vermelho {
+    padding: 15px 30px;
+    background-color: var(--cor-vermelho);
+    color: var(--cor-texto);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.8); 
+}
+
+.btn-vermelho:hover {
+    background-color: #F40F1D; 
+}
+
+
+/* === ESTILOS DO ESTÁGIO 3: CONTEÚDO/DIGITAÇÃO === */
+
+#content-stage.stage.active {
+    /* Garante que o conteúdo comece do topo para permitir a rolagem completa */
+    justify-content: flex-start; 
+    align-items: center;
+    padding-top: 5vh; 
+}
+
+/* Alterações para ROLAGEM TOTAL */
+.texto-centralizado-wrapper {
+    display: block; 
+    flex-grow: 1; 
+    padding: 0 20px 20px 20px; 
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left; 
+    
+    /* Configurações Chave de Rolagem */
+    max-height: 90vh; 
+    min-height: 0; 
+    overflow-y: auto; 
+    
+    /* Opcional: Melhora o scroll no iOS */
+    -webkit-overflow-scrolling: touch; 
+}
+
+/* REMOVIDO: Estilos ::-webkit-scrollbar (que deixavam a barra vermelha) */
+
+
+.text-section {
+    width: 90%;
+    max-width: 800px; 
+    padding: 20px 0; 
+    box-sizing: border-box;
+    margin: 0 auto; 
+}
+
+.text-section h2 {
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+    color: var(--cor-vermelho); 
+    text-align: center;
+}
+
+.bloco-texto {
+    margin-bottom: 40px;
+}
+
+.bloco-texto h3 {
+    font-size: 2.2rem; 
+    color: var(--cor-texto);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+/* Efeito de Digitação */
+.bloco-texto h3.typing::after,
+.bloco-texto p.typing::after {
+    /* Mantém o cursor piscando, mas sem o estilo de borda */
+    content: '|';
+    animation: blink-caret .75s step-end infinite;
+    margin-left: 5px;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--cor-texto); }
+}
+
+.bloco-texto p {
+    font-size: 1.25rem; 
+    line-height: 1.8;
+    white-space: pre-wrap; 
+    overflow: hidden; 
+    /* REMOVIDO: Remove a borda direita (barra de digitação) */
+    border-right: none; 
+    animation: none; 
+}
+
+.bloco-texto p.finished-typing::after {
+    border-color: transparent; 
+}
+
+.bloco-texto h3.finished-typing::after {
+    border-color: transparent; 
+}
+
+/* Garante que a borda direita seja removida durante a digitação */
+.bloco-texto p.typing,
+.bloco-texto h3.typing {
+    border-right: none !important;
+}
+
+/* === ALTERAÇÃO AQUI: REMOVIDOS OS ESTILOS DE DESTAQUE === */
+.bloco-texto.destaque {
+    padding: 20px 0; 
+}
+
+.btn-link {
+    display: none; 
+}
+
+
+/* === MEDIA QUERIES GERAIS === */
+
+@media (max-width: 600px) {
+    /* Login */
+    .login-box-simplified {
+        width: 90%; 
+        padding: 40px 20px; 
+    }
+    .login-container .logo {
+        font-size: 2.5rem;
+    }
+    
+    /* Conteúdo */
+    .text-section {
+        width: 95%;
+        padding: 10px 0;
+    }
+
+    .text-section h2 {
+        font-size: 2.5rem;
+    }
+
+    .bloco-texto h3 {
+        font-size: 1.8rem;
+    }
+
+    .bloco-texto p {
+        font-size: 1.1rem;
+    }
+    
+    #btnEntrar.btn-clean {
+        font-size: 1.2rem;
+    }
+    
+    /* Rolagem no mobile */
+    .texto-centralizado-wrapper {
+        max-height: 95vh; 
+    }
+}
